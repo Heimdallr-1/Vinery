@@ -305,6 +305,9 @@
   "text.autoconfig.vinery.option.items.wine.maxDuration": "Max Duration",
   "text.autoconfig.vinery.option.items.banner": "Completionist Banner",
   "text.autoconfig.vinery.option.items.banner.giveEffect": "Enable Banner Effect",
-  "text.autoconfig.vinery.option.items.banner.showTooltip": "Disable Tooltip"
+  "text.autoconfig.vinery.option.items.banner.showTooltip": "Disable Tooltip",
+  "text.autoconfig.vinery.option.items.basket": "Basket",
+  "text.autoconfig.vinery.option.items.basket.blacklist": "Blacklist",
+  "text.autoconfig.vinery.option.items.basket.blacklist.basketBlacklist": "Entries"
 
 }

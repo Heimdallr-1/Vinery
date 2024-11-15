@@ -45,6 +45,9 @@ public class VineryFabricConfig implements ConfigData {
         @ConfigEntry.Gui.CollapsibleObject
         public BannerSettings banner = new BannerSettings();
 
+        @ConfigEntry.Gui.CollapsibleObject
+        public BasketSettings basket = new BasketSettings();
+
         public static class WineSettings {
             @ConfigEntry.BoundedDiscrete(min = 1, max = 100000)
             public int startDuration = 1800;
@@ -69,6 +72,7 @@ public class VineryFabricConfig implements ConfigData {
     public static class BannerSettings {
 
         public boolean giveEffect = true;
+
 
         public boolean showTooltip = true;
 
@@ -150,6 +154,21 @@ public class VineryFabricConfig implements ConfigData {
         public enum TradeType {
             BUY,
             SELL
+        }
+    }
+
+    public static class BasketSettings {
+        @ConfigEntry.Gui.CollapsibleObject
+        @ConfigEntry.Category("Items/Basket")
+        public BasketBlacklistSettings blacklist = new BasketBlacklistSettings();
+
+        public static class BasketBlacklistSettings {
+            public List<String> basketBlacklist = new ArrayList<>();
+
+            public BasketBlacklistSettings() {
+                basketBlacklist.add("minecraft:shulker_box");
+                basketBlacklist.add("vinery:basket");
+            }
         }
     }
 }

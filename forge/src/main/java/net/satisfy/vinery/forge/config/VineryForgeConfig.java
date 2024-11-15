@@ -12,7 +12,6 @@ import java.util.List;
 public class VineryForgeConfig {
     public static final ForgeConfigSpec COMMON_CONFIG;
 
-    
     public static final ForgeConfigSpec.IntValue TOTAL_FERMENTATION_TIME;
     public static final ForgeConfigSpec.IntValue APPLE_PRESS_CRAFTING_TIME;
     public static final ForgeConfigSpec.DoubleValue CHERRY_GROWTH_CHANCE;
@@ -31,6 +30,7 @@ public class VineryForgeConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LEVEL3_TRADES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LEVEL4_TRADES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LEVEL5_TRADES;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> BASKET_BLACKLIST;
 
     static {
         ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
@@ -97,7 +97,15 @@ public class VineryForgeConfig {
                 .define("showTooltip", true);
 
         COMMON_BUILDER.pop();
+        COMMON_BUILDER.push("Basket");
 
+        BASKET_BLACKLIST = COMMON_BUILDER
+                .comment("List of item IDs that are blacklisted from being placed in the picnic basket. Format: 'modid:itemname'")
+                .defineList("basketBlacklist", List.of(
+                        "vinery:basket"
+                ), obj -> obj instanceof String);
+
+        COMMON_BUILDER.pop();
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.push("VillagerTrades");

@@ -4,6 +4,8 @@ import net.satisfy.vinery.fabric.config.VineryFabricConfig;
 import net.satisfy.vinery.platform.PlatformHelper;
 import me.shedaniel.autoconfig.AutoConfig;
 
+import java.util.List;
+
 public class PlatformHelperImpl extends PlatformHelper {
     public static int getTotalFermentationTime() {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
@@ -69,5 +71,10 @@ public class PlatformHelperImpl extends PlatformHelper {
     public static boolean shouldShowTooltip() {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.items.banner.isShowTooltipEnabled();
+    }
+
+    public static List<String> getBasketBlacklist() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.items.basket.blacklist.basketBlacklist;
     }
 }

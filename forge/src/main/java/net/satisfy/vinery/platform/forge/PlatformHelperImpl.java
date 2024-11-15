@@ -2,6 +2,8 @@ package net.satisfy.vinery.platform.forge;
 
 import net.satisfy.vinery.forge.config.VineryForgeConfig;
 
+import java.util.List;
+
 public class PlatformHelperImpl {
     public static int getTotalFermentationTime() {
         return VineryForgeConfig.TOTAL_FERMENTATION_TIME.get();
@@ -53,5 +55,9 @@ public class PlatformHelperImpl {
 
     public static boolean shouldShowTooltip() {
         return VineryForgeConfig.GIVE_EFFECT.get() && VineryForgeConfig.SHOW_TOOLTIP.get();
+    }
+
+    public static List<? extends String> getBasketBlacklist() {
+        return VineryForgeConfig.BASKET_BLACKLIST.get();
     }
 }

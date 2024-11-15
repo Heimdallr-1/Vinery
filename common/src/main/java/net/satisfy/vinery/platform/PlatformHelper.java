@@ -2,6 +2,8 @@ package net.satisfy.vinery.platform;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 
+import java.util.List;
+
 public class PlatformHelper {
     @ExpectPlatform
     public static int getTotalFermentationTime() {
@@ -65,6 +67,11 @@ public class PlatformHelper {
 
     @ExpectPlatform
     public static boolean shouldShowTooltip() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static List<String> getBasketBlacklist() {
         throw new AssertionError();
     }
 }
