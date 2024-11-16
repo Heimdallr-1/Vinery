@@ -77,4 +77,19 @@ public class PlatformHelperImpl extends PlatformHelper {
         VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
         return config.items.basket.blacklist.basketBlacklist;
     }
+
+    public static double getTraderSpawnChance() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.trader.spawnChance;
+    }
+
+    public static boolean shouldSpawnWithMules() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.trader.spawnWithMules;
+    }
+
+    public static int getTraderSpawnDelay() {
+        VineryFabricConfig config = AutoConfig.getConfigHolder(VineryFabricConfig.class).getConfig();
+        return config.trader.spawnDelay;
+    }
 }

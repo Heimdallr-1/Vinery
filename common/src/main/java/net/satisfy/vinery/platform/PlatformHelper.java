@@ -74,4 +74,19 @@ public class PlatformHelper {
     public static List<String> getBasketBlacklist() {
         throw new AssertionError();
     }
+
+    @ExpectPlatform
+    public static double getTraderSpawnChance() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static boolean shouldSpawnWithMules() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static int getTraderSpawnDelay() {
+        throw new AssertionError();
+    }
 }

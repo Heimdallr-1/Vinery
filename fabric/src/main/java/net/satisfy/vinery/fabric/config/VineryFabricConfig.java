@@ -81,6 +81,19 @@ public class VineryFabricConfig implements ConfigData {
         }
     }
 
+    @ConfigEntry.Gui.CollapsibleObject
+    public TraderSettings trader = new TraderSettings();
+
+    public static class TraderSettings {
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 1)
+        public double spawnChance = 0.5;
+
+        public boolean spawnWithMules = true;
+
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 72000)
+        public int spawnDelay = 48000;
+    }
+
     public static class VillagerSettings {
 
         @ConfigEntry.Gui.CollapsibleObject

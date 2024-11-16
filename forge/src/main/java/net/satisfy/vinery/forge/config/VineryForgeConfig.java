@@ -31,11 +31,14 @@ public class VineryForgeConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LEVEL4_TRADES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LEVEL5_TRADES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> BASKET_BLACKLIST;
+    public static final ForgeConfigSpec.DoubleValue TRADER_SPAWN_CHANCE;
+    public static final ForgeConfigSpec.BooleanValue SPAWN_WITH_MULES;
+    public static final ForgeConfigSpec.IntValue TRADER_SPAWN_DELAY;
 
     static {
         ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
-        COMMON_BUILDER.push("Blocks");
 
+        COMMON_BUILDER.push("Blocks");
         TOTAL_FERMENTATION_TIME = COMMON_BUILDER
                 .comment("Total fermentation time in ticks")
                 .defineInRange("totalFermentationTime", 6000, 1, Integer.MAX_VALUE);
@@ -55,12 +58,10 @@ public class VineryForgeConfig {
         GRAPE_GROWTH_CHANCE = COMMON_BUILDER
                 .comment("Chance for grapes to grow")
                 .defineInRange("grapeGrowthChance", 0.5, 0.0, 1.0);
-
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.push("Items");
         COMMON_BUILDER.push("Wine");
-
         MAX_LEVEL = COMMON_BUILDER
                 .comment("Maximum level for wine")
                 .defineInRange("maxLevel", 5, 1, 10);
@@ -84,10 +85,9 @@ public class VineryForgeConfig {
         MAX_DURATION = COMMON_BUILDER
                 .comment("Maximum duration in seconds")
                 .defineInRange("maxDuration", 15000, 1, 100000);
-
         COMMON_BUILDER.pop();
-        COMMON_BUILDER.push("Banner");
 
+        COMMON_BUILDER.push("Banner");
         GIVE_EFFECT = COMMON_BUILDER
                 .comment("Set to false to disable the banner's effect.")
                 .define("giveEffect", true);
@@ -95,21 +95,17 @@ public class VineryForgeConfig {
         SHOW_TOOLTIP = COMMON_BUILDER
                 .comment("Set to false to hide the banner's tooltip. If giveEffect is false, showTooltip is automatically false.")
                 .define("showTooltip", true);
-
         COMMON_BUILDER.pop();
-        COMMON_BUILDER.push("Basket");
 
+        COMMON_BUILDER.push("Basket");
         BASKET_BLACKLIST = COMMON_BUILDER
                 .comment("List of item IDs that are blacklisted from being placed in the picnic basket. Format: 'modid:itemname'")
                 .defineList("basketBlacklist", List.of(
                         "vinery:basket"
                 ), obj -> obj instanceof String);
-
-        COMMON_BUILDER.pop();
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.push("VillagerTrades");
-
         LEVEL1_TRADES = COMMON_BUILDER
                 .comment("List of trades for Level 1. Format: item|price|quantity|maxUses|isSelling")
                 .defineList("level1Trades", List.of(
@@ -151,28 +147,46 @@ public class VineryForgeConfig {
                         "vinery:lilitu_wine|4|1|10|true",
                         "vinery:calendar|12|1|15|true"
                 ), obj -> obj instanceof String);
+        COMMON_BUILDER.pop();
 
+        COMMON_BUILDER.push("WanderingTrader");
+        TRADER_SPAWN_CHANCE = COMMON_BUILDER
+                .comment("Chance for the custom trader to spawn. Range: 0.0 to 1.0")
+                .defineInRange("spawnChance", 0.5, 0.0, 1.0);
+
+        SPAWN_WITH_MULES = COMMON_BUILDER
+                .comment("If true, the trader will spawn with mules.")
+                .define("spawnWithMules", true);
+
+        TRADER_SPAWN_DELAY = COMMON_BUILDER
+                .comment("Spawn delay for the trader in ticks.")
+                .defineInRange("spawnDelay", 48000, 1, Integer.MAX_VALUE);
         COMMON_BUILDER.pop();
 
         COMMON_CONFIG = COMMON_BUILDER.build();
     }
 
-    @SubscribeEvent
-    public static void onLoad(final ModConfigEvent.Loading configEvent) {
-    }
-
-    @SubscribeEvent
-    public static void onReload(final ModConfigEvent.Reloading configEvent) {
-    }
-
     public static void loadConfig(ForgeConfigSpec spec, String path) {
         final CommentedFileConfig file = CommentedFileConfig.builder(new File(path))
                 .sync()
-                .preserveInsertionOrder()
                 .autosave()
                 .writingMode(WritingMode.REPLACE)
                 .build();
         file.load();
         spec.setConfig(file);
+    }
+
+    @SubscribeEvent
+    public static void onLoad(final ModConfigEvent.Loading configEvent) {
+        if (configEvent.getConfig().getSpec() == COMMON_CONFIG) {
+            System.out.println("Config loaded!");
+        }
+    }
+
+    @SubscribeEvent
+    public static void onReload(final ModConfigEvent.Reloading configEvent) {
+        if (configEvent.getConfig().getSpec() == COMMON_CONFIG) {
+            System.out.println("Config reloaded!");
+        }
     }
 }
